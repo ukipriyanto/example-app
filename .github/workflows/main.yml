@@ -28,7 +28,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{DOCKER_USRNAME}}/dev
+          images: ${{ secrets.DOCKERHUB_USERNAME }}/dev
           # The "type=semver" option interprets the Git tag as a semantic version.
           # The pattern "{{version}}" uses the tag value as-is (e.g. "1.0.0").
           tags: |
@@ -39,8 +39,8 @@ jobs:
         id: docker_login
         uses: docker/login-action@v3
         with:
-          username: ${{DOCKER_TOKEN_RW}}
-          password: ${{DOCKER_USRNAME}}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       # 5. Build and push the Docker image.
       #    It uses your Dockerfile (ideally a multi-stage build for Golang apps)
